@@ -1,31 +1,19 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: argo-prefix-strip
-  namespace: argocd
-spec:
-  stripPrefix:
-    prefixes:
-      - /argo
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.tls: "false"
-    # This line hooks up the middleware we defined above
-    traefik.ingress.kubernetes.io/router.middlewares: argocd-argo-prefix-strip@kuberdock
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
   - http:
       paths:
-      - path: /argo
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: argocd-server
             port:
-              number: 80
+              number: 443
