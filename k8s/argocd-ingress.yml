@@ -4,8 +4,8 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
+    # We use 'web' (Port 80) instead of 'websecure'
     traefik.ingress.kubernetes.io/router.entrypoints: web
-    # This prevents ArgoCD from infinitely redirecting SSL back and forth inside K3s
     traefik.ingress.kubernetes.io/router.tls: "false"
 spec:
   rules:
@@ -17,4 +17,4 @@ spec:
           service:
             name: argocd-server
             port:
-              number: 80
+              number: 80 # Internal container port
