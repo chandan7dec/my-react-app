@@ -8,6 +8,8 @@ RUN npm run build
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine
+# Copy your custom nginx config into the container
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy the built assets from Stage 1 to Nginx's public folder
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
