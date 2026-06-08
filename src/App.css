@@ -1,4 +1,14 @@
-.App {
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}.App {
   text-align: center;
 }
 
